@@ -11,9 +11,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddServiceScopedExtensions();
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost5173", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins("https://resume-api-fpd8h0e3fmfwcchs.canadacentral-01.azurewebsites.net","http://localhost:5173")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-app.UseCors("AllowLocalhost5173");
+app.UseCors("AllowFrontend");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

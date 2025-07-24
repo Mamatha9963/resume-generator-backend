@@ -7,20 +7,20 @@ using System.Text.RegularExpressions;
 
 namespace ResumeGenerator.Services
 {
-    public class OpenAiService : IOpenAiService
-    {
-        private readonly OpenAIAPI _api;
+  public class OpenAiService : IOpenAiService
+  {
+    private readonly OpenAIAPI _api;
 
-        public OpenAiService(IConfiguration config)
-        {
-            var apiKey = config["OpenAI:ApiKey"];
-            _api = new OpenAIAPI(apiKey);
-        }
-        public async Task<string> GenerateResumeAsync(ResumeRequest request)
-        {
-            try
-            {
-                var prompt = $@"
+    public OpenAiService(IConfiguration config)
+    {
+       var apiKey = config["OPENAI_API_KEY"];
+      _api = new OpenAIAPI(apiKey);
+    }
+    public async Task<string> GenerateResumeAsync(ResumeRequest request)
+    {
+      try
+      {
+        var prompt = $@"
 You are a professional resume writer. Based on the details below, generate a complete, clean, professional resume **and return it ONLY as a JSON object** with the following structure:
 
 {{
@@ -48,20 +48,20 @@ Return ONLY the JSON object without any additional text, markdown, or explanatio
 ";
 
 
-                var result = await _api.Completions.CreateCompletionAsync(new CompletionRequest
-                {
-                    Prompt = prompt,
-                    Model = "gpt-4o-mini",
-                    MaxTokens = 1000,
-                    Temperature = 0.7
-                });
+        var result = await _api.Completions.CreateCompletionAsync(new CompletionRequest
+        {
+          Prompt = prompt,
+          Model = "gpt-4o-mini",
+          MaxTokens = 1000,
+          Temperature = 0.7
+        });
 
-                return Regex.Replace(result.Completions[0].Text.Trim(),@"^[-]{3,}\s","");
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
+        return Regex.Replace(result.Completions[0].Text.Trim(), @"^[-]{3,}\s", "");
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
     }
+  }
 }
