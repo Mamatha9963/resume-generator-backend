@@ -18,7 +18,6 @@ namespace ResumeGenerator.Services
     }
     public async Task<string> GenerateResumeAsync(ResumeRequest request)
     {
-      Console.WriteLine("open ailey", _api);
       try
       {
         var prompt = $@"
