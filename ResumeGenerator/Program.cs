@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("https://resume-api-fpd8h0e3fmfwcchs.canadacentral-01.azurewebsites.net","http://localhost:5173")
+        policy.WithOrigins("https://agreeable-dune-04dda8a1e.2.azurestaticapps.net","http://localhost:5173")
               .AllowAnyMethod()
               .AllowAnyHeader();
     });
